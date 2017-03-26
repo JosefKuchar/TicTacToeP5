@@ -30,14 +30,25 @@ function draw() {
 
     renderText();
 
-    if(paper.gameDone()) {
+    if (paper.gameDone() === 0 || paper.gameDone() === 1) {
+        console.log(paper.gameDone())
         fill(255);
         rect(width / 4, height / 4, width / 2, height / 2);
         
-        var current = paper.currentPlayer == 0 ? "O" : "X";
+        var current = paper.gameDone() === 0 ? "X" : "O";
         fill(51);
         textSize(60 * SCALE);
         text("Player " + current + " wins!", width / 2, height / 2);
+        textSize(25 * SCALE);
+        text("Press any key to restart game", width / 2, height / 2 + 50 * SCALE);
+        end = true;
+    } else if (paper.gameDone() === 2) {
+        fill(255);
+        rect(width / 4, height / 4, width / 2, height / 2);
+
+        fill(51);
+        textSize(60 * SCALE);
+        text("Draw!", width / 2, height / 2);
         textSize(25 * SCALE);
         text("Press any key to restart game", width / 2, height / 2 + 50 * SCALE);
         end = true;

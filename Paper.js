@@ -65,30 +65,37 @@ Paper.prototype.setField = function(x, y) {
 }
 
 Paper.prototype.gameDone = function() {
+    var full = true;
     for (var x = 0; x < this.size; x++) {
         for (var y = 0; y < this.size; y++) {
             if (this.board[x][y] === 0) {
+                full = false
                 continue
             }
 
             // Collumn
             if (this.safeSpot(x, y - 4) && this.equal(x, y, x, y + 1, x, y + 2, x, y + 3, x, y + 4)) {
-                return true
+                return this.board[x][y] - 1;
             }
             // Row
             else if (this.safeSpot(x + 4, y) && this.equal(x, y, x + 1, y, x + 2, y, x + 3, y, x + 4, y)) {
-                return true
+                return this.board[x][y] - 1;
             }
             // Diagonal right
             else if (this.safeSpot(x + 4, y) && this.equal(x, y, x + 1, y - 1, x + 2, y - 2, x + 3, y - 3, x + 4, y - 4)) {
-                return true
+                return this.board[x][y] - 1;
             }
             // Diagonal left
             else if (this.safeSpot(x + 4, y) && this.equal(x, y, x + 1, y + 1, x + 2, y + 2, x + 3, y + 3, x + 4, y + 4)) {
-                return true
+                return this.board[x][y] - 1;
             }
         }
     }
+
+    if (full) {
+        return 2
+    }
+
     return false
 }
 
